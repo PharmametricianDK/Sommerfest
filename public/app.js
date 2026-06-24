@@ -15,8 +15,8 @@ const reservedItemsContainer = document.createElement("div");
 reservedItemsContainer.className = "items";
 reservedItemsContainer.setAttribute("aria-live", "polite");
 
-els.customItemForm.insertAdjacentElement("afterend", reservedItemsContainer);
 els.items.insertAdjacentElement("afterend", els.customItemForm);
+els.customItemForm.insertAdjacentElement("afterend", reservedItemsContainer);
 
 function setMessage(text, type = "") {
   els.message.textContent = text;
