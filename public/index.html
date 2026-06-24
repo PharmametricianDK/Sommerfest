@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pot-luck Signup</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Sommerfest</p>
+        <h1>Pick what you’re bringing</h1>
+        <p class="intro">
+          Choose one of the items below, add your name, and your signup is saved right away.
+          No login needed.
+        </p>
+        <div class="status-bar">
+          <span id="lastUpdated">Loading signups...</span>
+          <button id="refreshButton" class="ghost-button" type="button">Refresh</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <form id="nameForm" class="name-form">
+          <label for="guestName">Your name</label>
+          <div class="name-row">
+            <input id="guestName" name="guestName" maxlength="50" placeholder="Enter your name" required />
+          </div>
+          <p class="hint">Your name is used when you claim an item and if you want to undo your own signup later.</p>
+        </form>
+
+        <div id="message" class="message" aria-live="polite"></div>
+        <div id="items" class="items" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <template id="itemTemplate">
+      <article class="item-card">
+        <div class="item-copy">
+          <h2 class="item-title"></h2>
+          <p class="item-details"></p>
+          <p class="claimed-by"></p>
+        </div>
+        <div class="item-actions">
+          <button class="claim-button" type="button">I’ll bring this</button>
+          <button class="release-button" type="button">Remove my signup</button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
