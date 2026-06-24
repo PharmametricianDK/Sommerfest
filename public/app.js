@@ -11,6 +11,12 @@ const els = {
 };
 
 let currentItems = [];
+const reservedItemsContainer = document.createElement("div");
+reservedItemsContainer.className = "items";
+reservedItemsContainer.setAttribute("aria-live", "polite");
+
+els.customItemForm.insertAdjacentElement("afterend", reservedItemsContainer);
+els.items.insertAdjacentElement("afterend", els.customItemForm);
 
 function setMessage(text, type = "") {
   els.message.textContent = text;
@@ -34,39 +40,54 @@ function resetCustomItemForm() {
   els.customItemForm.reset();
 }
 
-function renderItems(items) {
-  currentItems = items;
-  els.items.innerHTML = "";
+function createItemCard(item) {
+  const fragment = els.itemTemplate.content.cloneNode(true);
+  const card = fragment.querySelector(".item-card");
+  const title = fragment.querySelector(".item-title");
+  const details = fragment.querySelector(".item-details");
+  const tag = fragment.querySelector(".item-tag");
+  const claimedBy = fragment.querySelector(".claimed-by");
+  const claimButton = fragment.querySelector(".claim-button");
+  const releaseButton = fragment.querySelector(".release-button");
+
+  title.textContent = item.label;
+  details.textContent = item.details || "";
+  tag.textContent = item.isCustom ? "Gaestetilfoejelse" : "";
+  tag.hidden = !item.isCustom;
+
+  if (item.claimedBy) {
+    card.dataset.claimed = "true";
+    claimedBy.textContent = `Claimed by ${item.claimedBy}`;
+    claimButton.disabled = true;
+  } else {
+    claimedBy.textContent = "Still needed";
+    releaseButton.disabled = true;
+  }
+
+  claimButton.addEventListener("click", () => submitClaim(item.id));
+  releaseButton.addEventListener("click", () => releaseClaim(item.id));
+
+  return fragment;
+}
+
+function renderItemList(container, items) {
+  container.innerHTML = "";
 
   for (const item of items) {
-    const fragment = els.itemTemplate.content.cloneNode(true);
-    const card = fragment.querySelector(".item-card");
-    const title = fragment.querySelector(".item-title");
-    const details = fragment.querySelector(".item-details");
-    const tag = fragment.querySelector(".item-tag");
-    const claimedBy = fragment.querySelector(".claimed-by");
-    const claimButton = fragment.querySelector(".claim-button");
-    const releaseButton = fragment.querySelector(".release-button");
-
-    title.textContent = item.label;
-    details.textContent = item.details || "";
-    tag.textContent = item.isCustom ? "Gaestetilfoejelse" : "";
-    tag.hidden = !item.isCustom;
-
-    if (item.claimedBy) {
-      card.dataset.claimed = "true";
-      claimedBy.textContent = `Claimed by ${item.claimedBy}`;
-      claimButton.disabled = true;
-    } else {
-      claimedBy.textContent = "Still needed";
-      releaseButton.disabled = true;
-    }
-
-    claimButton.addEventListener("click", () => submitClaim(item.id));
-    releaseButton.addEventListener("click", () => releaseClaim(item.id));
-
-    els.items.appendChild(fragment);
+    container.appendChild(createItemCard(item));
   }
+}
+
+function renderItems(items) {
+  currentItems = items;
+
+  const availablePredefinedItems = items.filter((item) => !item.isCustom && !item.claimedBy);
+  const availableCustomItems = items.filter((item) => item.isCustom && !item.claimedBy);
+  const reservedPredefinedItems = items.filter((item) => !item.isCustom && item.claimedBy);
+  const reservedCustomItems = items.filter((item) => item.isCustom && item.claimedBy);
+
+  renderItemList(els.items, [...availablePredefinedItems, ...availableCustomItems]);
+  renderItemList(reservedItemsContainer, [...reservedPredefinedItems, ...reservedCustomItems]);
 }
 
 async function loadItems() {
