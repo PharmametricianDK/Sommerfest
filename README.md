@@ -6,9 +6,12 @@ Guests can:
 
 - enter their name
 - claim one of the listed items
+- add their own custom item if none of the preset slots fit
 - remove their own signup later
 
 The current signup state is stored as a single JSON object in Cloudflare R2.
+
+Custom items are stored alongside the normal claims. When the person who added a custom item removes their signup, that custom item is removed from the list as well.
 
 ## Edit the list of needed items
 
