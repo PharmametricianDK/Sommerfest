@@ -82,12 +82,11 @@ function renderItems(items) {
   currentItems = items;
 
   const availablePredefinedItems = items.filter((item) => !item.isCustom && !item.claimedBy);
-  const availableCustomItems = items.filter((item) => item.isCustom && !item.claimedBy);
   const reservedPredefinedItems = items.filter((item) => !item.isCustom && item.claimedBy);
-  const reservedCustomItems = items.filter((item) => item.isCustom && item.claimedBy);
+  const customItems = items.filter((item) => item.isCustom);
 
-  renderItemList(els.items, [...availablePredefinedItems, ...availableCustomItems]);
-  renderItemList(reservedItemsContainer, [...reservedPredefinedItems, ...reservedCustomItems]);
+  renderItemList(els.items, availablePredefinedItems);
+  renderItemList(reservedItemsContainer, [...reservedPredefinedItems, ...customItems]);
 }
 
 async function loadItems() {
