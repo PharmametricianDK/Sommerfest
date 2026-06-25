@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
 
 :root {
+  /* Theme variables: update these values first if you want to change the app's colors. */
   --bg: #f4efe5;
   --panel: rgba(255, 250, 242, 0.88);
   --panel-strong: #fffaf2;
@@ -16,10 +17,12 @@
 }
 
 * {
+  /* Makes widths easier to reason about when editing padding and borders manually. */
   box-sizing: border-box;
 }
 
 body {
+  /* Global page look: font, full-height canvas, and the decorative background. */
   margin: 0;
   min-height: 100vh;
   font-family: "Nunito", sans-serif;
@@ -32,20 +35,24 @@ body {
 
 button,
 input {
+  /* Keeps form controls visually consistent with the rest of the typography. */
   font: inherit;
 }
 
 .page {
+  /* Main centered layout container. Adjust width/padding here for overall page spacing. */
   width: min(980px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 3rem 0 4rem;
 }
 
 .hero {
+  /* Space between the intro block and the main signup panel. */
   margin-bottom: 1.5rem;
 }
 
 .hero-logo {
+  /* Responsive logo sizing. The clamp values control min, preferred, and max size. */
   display: block;
   width: clamp(84px, 12vw, 132px);
   height: auto;
@@ -54,6 +61,7 @@ input {
 }
 
 .eyebrow {
+  /* Small all-caps event label above the main heading. */
   margin: 0 0 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -62,6 +70,7 @@ input {
 }
 
 h1 {
+  /* Main headline sizing. The clamp keeps it flexible across screen sizes. */
   margin: 0;
   font-size: clamp(2.4rem, 5vw, 4.6rem);
   line-height: 0.95;
@@ -69,6 +78,7 @@ h1 {
 }
 
 .intro {
+  /* Intro paragraph width and readability settings. */
   max-width: 42rem;
   font-size: 1.1rem;
   line-height: 1.6;
@@ -76,6 +86,7 @@ h1 {
 }
 
 .status-bar {
+  /* Aligns the status text and refresh button, wrapping nicely on smaller widths. */
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -85,6 +96,7 @@ h1 {
 }
 
 .panel {
+  /* Shared panel styling for the content area. */
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 28px;
@@ -95,23 +107,27 @@ h1 {
 
 .name-form,
 .custom-item-form {
+  /* Base vertical spacing for both forms. */
   padding: 0.25rem 0 1rem;
 }
 
 .name-form label,
 .custom-item-form label {
+  /* Shared label styling. */
   display: block;
   font-size: 0.95rem;
   margin-bottom: 0.4rem;
 }
 
 .name-row {
+  /* Name input row. Useful if you later add an inline helper or button beside the field. */
   display: flex;
   gap: 0.75rem;
 }
 
 .name-row input,
 .custom-item-form input {
+  /* Shared text-input styling used throughout the page. */
   width: min(420px, 100%);
   padding: 0.9rem 1rem;
   border-radius: 16px;
@@ -120,6 +136,7 @@ h1 {
 }
 
 .custom-item-form {
+  /* Visually separates the "add your own item" form from the main name input. */
   margin-bottom: 0.5rem;
   padding: 1rem;
   border: 1px dashed var(--line);
@@ -128,11 +145,13 @@ h1 {
 }
 
 .custom-item-copy h2 {
+  /* Heading inside the custom item form. */
   margin: 0 0 0.25rem;
   font-size: 1.2rem;
 }
 
 .custom-item-grid {
+  /* Two-column layout for custom fields; switches to one column in the mobile media query. */
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.9rem;
@@ -140,34 +159,41 @@ h1 {
 }
 
 .custom-item-grid label span {
+  /* Spacing between each field label and input. */
   display: block;
   margin-bottom: 0.35rem;
 }
 
 .hint,
 .message {
+  /* Shared muted text color for helper copy and status messages. */
   color: var(--muted);
 }
 
 .message {
+  /* Reserved space prevents the layout from jumping when feedback appears. */
   min-height: 1.5rem;
   margin-bottom: 0.75rem;
 }
 
 .message.success {
+  /* Success feedback color used by the app. */
   color: var(--success);
 }
 
 .message.error {
+  /* Error feedback color used by the app. */
   color: var(--error);
 }
 
 .items {
+  /* Simple stacked list for the rendered signup cards. */
   display: grid;
   gap: 1rem;
 }
 
 .item-card {
+  /* Each signup card uses a two-column layout: content left, actions right. */
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 1rem;
@@ -179,10 +205,12 @@ h1 {
 }
 
 .item-card[data-claimed="true"] {
+  /* Alternate background applied when JavaScript marks an item as claimed. */
   background: #f0e8de;
 }
 
 .item-title {
+  /* Card title for the item name. */
   margin: 0 0 0.2rem;
   font-size: 1.35rem;
 }
@@ -190,11 +218,13 @@ h1 {
 .item-details,
 .claimed-by,
 .item-tag {
+  /* Shared supporting text style inside each item card. */
   margin: 0.15rem 0;
   color: var(--muted);
 }
 
 .item-tag {
+  /* Small pill-style label for item tags/categories. */
   display: inline-block;
   width: fit-content;
   padding: 0.2rem 0.55rem;
@@ -207,6 +237,7 @@ h1 {
 }
 
 .item-actions {
+  /* Keeps action buttons grouped and right-aligned on larger screens. */
   display: flex;
   gap: 0.65rem;
   flex-wrap: wrap;
@@ -214,6 +245,7 @@ h1 {
 }
 
 button {
+  /* Base button styling shared by primary and secondary actions. */
   border: 0;
   border-radius: 999px;
   cursor: pointer;
@@ -221,10 +253,12 @@ button {
 }
 
 button:hover:not(:disabled) {
+  /* Small lift on hover for a more clickable feel. */
   transform: translateY(-1px);
 }
 
 button:disabled {
+  /* Used when an action is temporarily unavailable. */
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -232,26 +266,31 @@ button:disabled {
 .claim-button,
 .ghost-button,
 .release-button {
+  /* Shared button padding so all action buttons feel consistent. */
   padding: 0.82rem 1rem;
 }
 
 .claim-button {
+  /* Primary action button styling. */
   background: var(--accent);
   color: white;
 }
 
 .claim-button:hover:not(:disabled) {
+  /* Darker hover state for the primary action. */
   background: var(--accent-dark);
 }
 
 .release-button,
 .ghost-button {
+  /* Secondary action buttons with outlined styling. */
   background: transparent;
   color: var(--text);
   border: 1px solid var(--line);
 }
 
 @media (max-width: 760px) {
+  /* Mobile layout adjustments: tighter spacing and single-column content blocks. */
   .page {
     width: min(100% - 1rem, 980px);
     padding-top: 1rem;

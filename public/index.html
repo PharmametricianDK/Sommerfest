@@ -1,32 +1,39 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Basic page setup: title, mobile scaling, and the shared stylesheet. -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pot-luck Signup</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
+    <!-- Main page wrapper. Most overall spacing is controlled by the .page class in styles.css. -->
     <main class="page">
+      <!-- Hero/header area: logo, event name, intro text, and refresh controls. -->
       <section class="hero">
         <img
           class="hero-logo"
           src="https://impro.usercontent.one/appid/oneComWsb/domain/conquerors.dk/media/conquerors.dk/onewebmedia/Conquerors_Logo.png"
           alt="Conquerors logo"
         />
+        <!-- Easy text edits: change the event label, headline, or intro copy right here. -->
         <p class="eyebrow">Conquerors Sommerfest</p>
         <h1>Hvad tager du med?</h1>
         <p class="intro">
           Vælg hvad du vil medbringe til sommerfesten.
           No login needed.
         </p>
+        <!-- JavaScript updates #lastUpdated and uses the button to refresh the current signup data. -->
         <div class="status-bar">
           <span id="lastUpdated">Loading signups...</span>
           <button id="refreshButton" class="ghost-button" type="button">Refresh</button>
         </div>
       </section>
 
+      <!-- Main content panel: name entry, custom item form, feedback area, and the items list. -->
       <section class="panel">
+        <!-- Name form: this tells the app who is claiming or releasing an item. -->
         <form id="nameForm" class="name-form">
           <label for="guestName">Dit navn</label>
           <div class="name-row">
@@ -35,11 +42,13 @@
           <p class="hint">Dit navn bruges, når du vælger, og hvis du vil fortryde din egen tilmelding senere.</p>
         </form>
 
+        <!-- Custom item form: lets guests add a new thing to bring if nothing else fits. -->
         <form id="customItemForm" class="custom-item-form">
           <div class="custom-item-copy">
             <h2>Passer ingen af valgene?</h2>
             <p class="hint">Tilføj det, du selv gerne vil tage med, så andre kan se det på listen.</p>
           </div>
+          <!-- Add or remove fields here if you want guests to enter more custom item details later. -->
           <div class="custom-item-grid">
             <label>
               <span>Det tager jeg med</span>
@@ -63,19 +72,24 @@
           <button id="addItemButton" class="claim-button" type="submit">Tilføj mit eget bidrag</button>
         </form>
 
+        <!-- JavaScript writes success/error feedback into this message area. -->
         <div id="message" class="message" aria-live="polite"></div>
+        <!-- JavaScript renders the current list of signup cards into this container. -->
         <div id="items" class="items" aria-live="polite"></div>
       </section>
     </main>
 
+    <!-- Template for a single signup card. app.js clones this for each item in the list. -->
     <template id="itemTemplate">
       <article class="item-card">
         <div class="item-copy">
+          <!-- These elements start empty because JavaScript fills them with each item's data. -->
           <h2 class="item-title"></h2>
           <p class="item-details"></p>
           <p class="item-tag"></p>
           <p class="claimed-by"></p>
         </div>
+        <!-- You can change button labels here; the behavior itself is wired up in app.js. -->
         <div class="item-actions">
           <button class="claim-button" type="button">Jeg tager dette med</button>
           <button class="release-button" type="button">Fjern min tilmelding</button>
@@ -83,6 +97,7 @@
       </article>
     </template>
 
+    <!-- Main frontend behavior. Keep this path in sync if the JavaScript file is moved or renamed. -->
     <script type="module" src="/app.js"></script>
   </body>
 </html>
